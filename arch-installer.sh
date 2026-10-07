@@ -105,7 +105,8 @@ arch-chroot "$SYS_TEMP_DIR" systemctl enable NetworkManager
 
 
 echo "System Clock"
-arch-chroot "$SYS_TEMP_DIR" ln -sf /usr/share/zoneinfo/Europe/Kyiv /etc/localtime
+read -p "Your timezone region: " timezone
+arch-chroot "$SYS_TEMP_DIR" ln -sf /usr/share/zoneinfo/"$timezone" /etc/localtime
 arch-chroot "$SYS_TEMP_DIR" systemctl enable systemd-timesyncd
 arch-chroot "$SYS_TEMP_DIR" hwclock --systohc
 
