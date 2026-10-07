@@ -149,6 +149,9 @@ echo 'Uncomment "#[multilib]" and "#Include = ..."'
 read -p "Press enter..."
 arch-chroot "$SYS_TEMP_DIR" mcedit /etc/pacman.conf
 
+echo -e "\nInstalling lib32-gamemode"
+arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm lib32-gamemode
+
 echo -e "\nBootloader installation (grub)"
 arch-chroot "$SYS_TEMP_DIR" grub-install "$disksel"
 arch-chroot "$SYS_TEMP_DIR" grub-mkconfig -o /boot/grub/grub.cfg
@@ -156,15 +159,13 @@ arch-chroot "$SYS_TEMP_DIR" grub-mkconfig -o /boot/grub/grub.cfg
 echo -e "\nAUR"
 PKG_DIR="/home/$username/yay"
 
-# Clone the yay repository as the new user
 arch-chroot "$SYS_TEMP_DIR" su - "$username" -c "git clone https://aur.archlinux.org/yay.git $PKG_DIR"
 
-# Update system
 arch-chroot "$SYS_TEMP_DIR" pacman -Syu --noconfirm
 
 arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm --asdeps go
-# Automatically build and install yay
+
 arch-chroot "$SYS_TEMP_DIR" su - "$username" -c "cd $PKG_DIR && makepkg --noconfirm"
 arch-chroot "$SYS_TEMP_DIR" bash -c "pacman -U --noconfirm $PKG_DIR/*.pkg.tar.zst"
 
-arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm lib32-gamemode
+rm -rf "$SYS_TEMP_DIR""$PKG_DIR"
