@@ -149,6 +149,8 @@ echo 'Uncomment "#[multilib]" and "#Include = ..."'
 read -p "Press enter..."
 arch-chroot "$SYS_TEMP_DIR" mcedit /etc/pacman.conf
 
+arch-chroot "$SYS_TEMP_DIR" pacman -Syu --noconfirm
+
 echo -e "\nInstalling lib32-gamemode"
 arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm lib32-gamemode
 
@@ -160,8 +162,6 @@ echo -e "\nAUR"
 PKG_DIR="/home/$username/yay"
 
 arch-chroot "$SYS_TEMP_DIR" su - "$username" -c "git clone https://aur.archlinux.org/yay.git $PKG_DIR"
-
-arch-chroot "$SYS_TEMP_DIR" pacman -Syu --noconfirm
 
 arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm --asdeps go
 
