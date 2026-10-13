@@ -171,12 +171,9 @@ arch-chroot "$SYS_TEMP_DIR" bash -c "pacman -U --noconfirm $PKG_DIR/*.pkg.tar.zs
 rm -rf "$SYS_TEMP_DIR""$PKG_DIR"
 
 # DEs
-plasma_packages="power-profiles-daemon plasma-desktop plasma-workspace-wallpapers plasma-login-manager plasma-systemmonitor plasma-pa plasma-nm bluedevil kde-gtk-config breeze-gtk kscreen spectacle tesseract-data-eng gwenview haruna ark kate konsole dolphin kcalc partitionmanager
-"
-
 read -p "What de to install? (plasma/n): " ans
 if [[ "$ans" == "plasma" ]]; then
-    arch-chroot "$SYS_TEMP_DIR" sudo pacman -S "$plasma_packages"
+    arch-chroot "$SYS_TEMP_DIR" sudo pacman -S power-profiles-daemon plasma-desktop plasma-workspace-wallpapers plasma-login-manager plasma-systemmonitor plasma-pa plasma-nm bluedevil kde-gtk-config breeze-gtk kscreen spectacle tesseract-data-eng gwenview haruna ark kate konsole dolphin kcalc partitionmanager
     arch-chroot "$SYS_TEMP_DIR" systemctl enable plasmalogin bluetooth
 #elif [[ "$ans" == "" ]]:
 else
