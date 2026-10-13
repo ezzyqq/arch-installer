@@ -171,10 +171,10 @@ arch-chroot "$SYS_TEMP_DIR" bash -c "pacman -U --noconfirm $PKG_DIR/*.pkg.tar.zs
 rm -rf "$SYS_TEMP_DIR""$PKG_DIR"
 
 
-echo "--- Desktop Environment ---"
-echo "0) No DE"
-echo "1) KDE Plasma"
-read -r -p "> " de_choice
+echo -e "\n--- Desktop Environment ---"
+echo -e "0) No DE"
+echo -e "1) KDE Plasma"
+read -e -r -p "> " de_choice
 
 if [[ "$de_choice" == "0" ]]; then
     echo "Skipping"
