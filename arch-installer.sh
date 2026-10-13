@@ -155,7 +155,7 @@ echo -e "\nInstalling lib32-gamemode"
 arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm lib32-gamemode
 
 echo -e "\nBootloader installation (grub)"
-arch-chroot "$SYS_TEMP_DIR" grub-install "$disksel"
+arch-chroot "$SYS_TEMP_DIR" grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 arch-chroot "$SYS_TEMP_DIR" grub-mkconfig -o /boot/grub/grub.cfg
 
 echo -e "\nAUR"
