@@ -169,3 +169,18 @@ arch-chroot "$SYS_TEMP_DIR" su - "$username" -c "cd $PKG_DIR && makepkg --noconf
 arch-chroot "$SYS_TEMP_DIR" bash -c "pacman -U --noconfirm $PKG_DIR/*.pkg.tar.zst"
 
 rm -rf "$SYS_TEMP_DIR""$PKG_DIR"
+
+
+echo "--- Desktop Environment ---"
+echo "0) No DE"
+echo "1) KDE Plasma"
+read -r -p "> " de_choice
+
+if [[ "$de_choice" == "0" ]]; then
+    echo "Skipping"
+elif [[ "$de_choice" == "1" ]]; then
+    arch-chroot "$SYS_TEMP_DIR" pacman -S --noconfirm power-profiles-daemon plasma-desktop plasma-workspace-wallpapers plasma-login-manager plasma-systemmonitor plasma-pa plasma-nm bluedevil kde-gtk-config breeze-gtk kscreen spectacle tesseract-data-eng gwenview haruna ark kate konsole dolphin kcalc partitionmanager
+    arch-chroot "$SYS_TEMP_DIR" systemctl enable plasmalogin bluetooth
+else
+    echo "Skipping"
+fi
