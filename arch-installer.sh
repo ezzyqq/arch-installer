@@ -92,7 +92,7 @@ echo ""
 read -p "Press enter..."
 
 echo -e "\n--- Installing system packages ---"
-pacstrap "$SYS_TEMP_DIR" base linux-zen linux-zen-headers linux-firmware sof-firmware base-devel grub efibootmgr networkmanager fastfetch git mc bash-completion tree less gamemode xorg-fonts-misc gnu-free-fonts
+pacstrap "$SYS_TEMP_DIR" base linux-zen linux-zen-headers linux-firmware sof-firmware base-devel grub efibootmgr networkmanager fastfetch git mc bash-completion tree less gamemode xorg-fonts-misc gnu-free-fonts switcheroo-control
 
 echo -e "\n--- Finalizing ---"
 echo "Generating /etc/fstab"
@@ -102,7 +102,8 @@ genfstab -U "$SYS_TEMP_DIR" > "$SYS_TEMP_DIR/etc/fstab"
 
 echo -e "\nEnabling NetworkManager"
 arch-chroot "$SYS_TEMP_DIR" systemctl enable NetworkManager
-
+echo -e "Enabling switcheroo-control"
+arch-chroot "SYS_TEMP_DIR" systemctl enable switcheroo-control
 
 echo "System Clock"
 read -p "Your timezone region: " timezone
